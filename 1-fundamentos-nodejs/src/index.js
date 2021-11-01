@@ -4,7 +4,7 @@ const app = express();
 const port = 3333
 
 app.get("/", (request, response) => {
-  return request.send("OPA")
+  return response.json({ message: "Hello World Ignite!" })
 })
 
 app.listen(port, () => console.log(`Initialized on http://localhost:${port}`))
