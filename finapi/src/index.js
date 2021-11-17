@@ -9,6 +9,21 @@ const port = 3333;
 
 const customers = [];
 
+// Middleware
+function verifyIfExistsAccountCPF(request, response, next) {
+  const { cpf } = request.headers;
+
+  const customer = customers.find(client => client.cpf === cpf);
+
+  if (!customer) {
+    return response.status(400).json({ error: "Customer not found" });
+  }
+
+  request.customer = customer;
+
+  return next();
+}
+
 app.post("/account", (request, response) => {
   const { cpf, name } = request.body;
 
@@ -26,20 +41,15 @@ app.post("/account", (request, response) => {
     id: uuidv4(),
     statement: []
   })
+  return response.status(201).send("Created!")
+});
 
-  return response.status(201).send("")
+app.get("/statement", verifyIfExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+  
+  return response.status(201).json(customer.statement);
 })
 
-app.get("/statement/:cpf", (request, response) => {
-  const { cpf } = request.params;
-
-  const findClient = customers.find(client => client.cpf === cpf);
-
-  if (findClient) {
-    return response.status(201).json(findClient.statement);
-  } else {
-    return response.status(400).json({ error: "Not exists" });
-  }
-})
+app.use(verifyIfExistsAccountCPF);
 
 app.listen(port, () => console.log(`\n\n Running on: \n http://localhost:${port} \n\n`));
