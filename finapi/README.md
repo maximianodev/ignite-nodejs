@@ -1,6 +1,25 @@
-<!-- @format -->
+# FinApi - Financeia
 
-## FinApi - Financeia
+Uma API financeira de nivel iniciante feita no Módulo 2 do OmniStack de NodeJS da Rocketseat.
+
+### Routes
+
+-   POST `/account` - Passando `cpf` e `nome` no body para criar uma nova conta.
+-   PUT `/account` - Passando `cpf` no header e `nome` no body para atualizar uma nome de uma conta.
+-   GET `/account` - Passando `cpf` no header para listar as contas existentes.
+-   DELETE `/account` - Passando `cpf` no header para deletar uma conta.
+
+-   GET `/statement` - Passando `cpf` no header params para mostar o extrato financeiro.
+-   GET `/statement/date` - Passando `date` no body e `cpf` no header para fazer uma busca por data. **Importante frizar que a data tem que ser no seguinte formato `ano-mes-dia` exemplo `2021-11-18`**.
+
+-   POST `/deposit` - Passando `description` e `amount` no body e `cpf` no header para fazer um deposito.
+
+-   POST `/withdraw` - Passando `amount` no body e `cpf` no header para fazer um saque.
+-   POST `/withdraw` - Passando `amount` no body e `cpf` no header para fazer um saque.
+
+-   GET `/balance` - Passando `cpf` no header para pegar o balanço geral de uma conta.
+
+---
 
 ### Requisitos
 
